@@ -1,0 +1,12 @@
+$primary-color: red;
+
+.table-headers,
+.table-rows {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1.5fr;
+  .table-cell {
+    img {
+      width: 100%;
+    }
+  }
+}
