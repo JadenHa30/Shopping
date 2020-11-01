@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
+import ContentHeader from './ContentHeader';
 import ProductRow from './ProductRow';
+import Modal from './Modal';
+
 
 class MainContent extends Component {
-    state = {  }
+    state = {
+        open: false,
+        products: [
+        ]
+      };
+    addProduct = (name, price, image) =>{
+        const product={
+                id: this.state.products.length, //set increasing id
+                name,
+                price,
+                image
+              }
+        this.setState({
+            products:[...this.state.products,product]
+        })
+    }
+    toggleModal = ()=>{
+        this.setState({
+            open: !this.state.open
+        })
+    }
+    
     render() { 
         return (  
+            <>
             <main>
-                <div className="content-header">
-                    <h3>Product</h3>
-                    <button className="btn">Add</button>
-                </div>
+                <ContentHeader toggleModal={this.toggleModal} addProduct={this.addProduct} />
                 <div className="content-table">
                         <div className="table-headers">
                             <div className="table-header">
@@ -28,9 +50,19 @@ class MainContent extends Component {
                                 Action
                             </div>
                         </div>
-                        <ProductRow name="Product 1" price="2" id="1" img="https://minimalistbaker.com/wp-content/uploads/2015/08/AMAZING-5-Ingredient-Vanilla-Coconut-Ice-Cream-Incredibly-simple-perfectly-sweet-INSANELY-creamy-vegan-glutenfree-icecream-dessert-recipe-vanilla-coconuticecream-coconut.jpg"></ProductRow>
+                        {
+                            this.state.products.length>0?
+                            this.state.products.map((product) => {
+                                return <ProductRow key={product.id} product={product}/>
+                            })
+                            :<h3 className="text-center mt-3">empty product</h3>
+                        }
                 </div>  
             </main>
+            {
+                this.state.open?<Modal addProduct={this.addProduct} toggleModal={this.toggleModal}/>:''
+            }
+            </>
         );
     }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class ProductRow extends Component {
     render() { 
-        const {id, name, price, img} = this.props;
+        const {id, name, price, image} = this.props.product;
         return (  
             <div className="table-rows">
                 <div className="table-cell">
@@ -15,7 +15,7 @@ class ProductRow extends Component {
                     {price}€
                 </div>
                 <div className="table-cell">
-                    <img src={img}  alt=""/>
+                    <img src={image}  alt=""/>
                 </div>
                 <div className="table-cell">
                     <button className="btn">Edit</button>
