@@ -17,8 +17,28 @@ export default class  Modal extends Component{
     handleSubmit=(event)=>{
         event.preventDefault();
         const {name, price, image} = this.state;
-        this.props.addProduct(name,price,image);
+        if(this.props.editingProduct){
+            this.props.updateProduct(name, price, image);
+        }else{
+            this.props.addProduct(name,price,image);
+        }
         this.props.toggleModal();
+    }
+    componentDidMount(){
+        if(this.props.editingProduct){
+            console.log("update")
+            const {name, price, image} = this.props.editingProduct;
+            this.setState({
+                name,
+                price,
+                image
+            })
+        }else{
+            console.log("create")
+        }
+    }
+    componentWillUnmount(){
+        this.props.clearIsEditting();
     }
     render(){
         const {name, price, image} = this.state;
@@ -28,6 +48,7 @@ export default class  Modal extends Component{
                     <button onClick={this.handleClose} type="button" className="close btn btn-outline-primary">
                             Close
                     </button>
+                    <h5>{this.props.editingProduct?'Update Product':'Create Product'}</h5>
                     <form className="p-3" onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="exampleInputEmail1">Product Name</label>
@@ -41,7 +62,7 @@ export default class  Modal extends Component{
                             <label htmlFor="exampleInputPassword1">Image</label>
                             <input type="text" name="image" className="form-control" placeholder="Image" value={image} onChange={this.handleChange} />
                         </div>
-                        <button type="submit" className="btn btn-primary">Add</button>
+                        <button type="submit" className="btn btn-primary">{this.props.editingProduct?'Update':'Add'}</button>
                     </form>
                 </div>
             </div>
