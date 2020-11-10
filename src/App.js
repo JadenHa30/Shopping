@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import ShoppingAdmin from './components/ShoppingAdmin';
+import AllProducts from './components/client/AllProducts';
+import ShoppingAdmin from './components/admin/ShoppingAdmin';
 
 function App() {
   return (
     <div>
-      <ShoppingAdmin></ShoppingAdmin>
+      {/* <ShoppingAdmin /> */}
+      <AllProducts />
     </div>
   );
 }
