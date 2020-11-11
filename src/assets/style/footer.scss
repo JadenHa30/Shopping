@@ -1,0 +1,18 @@
+footer {
+  background-color: #000;
+  color: #fff;
+  input {
+    background: transparent;
+    border: none;
+    border-bottom: solid 2px #fff;
+    color: #fff;
+    width: 25%;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    svg {
+      width: 20px;
+    }
+  }
+}

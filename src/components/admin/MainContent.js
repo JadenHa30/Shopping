@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ContentHeader from './ContentHeader';
 import ProductRow from './ProductRow';
 import Modal from './Modal';
+import axios from 'axios';
 
 
 class MainContent extends Component {
@@ -11,6 +12,15 @@ class MainContent extends Component {
         ],
         isEditting: undefined //index of product
       };
+      componentDidMount(){
+          axios.get("http://localhost:3001/products")
+            .then(res=>{
+                this.setState({
+                    products: res.data
+                })
+            })
+      }
+
     addProduct = (name, price, image) =>{
         const product={
                 id: this.state.products.length, //set increasing id
