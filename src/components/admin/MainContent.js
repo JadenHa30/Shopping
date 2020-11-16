@@ -3,6 +3,7 @@ import ContentHeader from './ContentHeader';
 import ProductRow from './ProductRow';
 import Modal from './Modal';
 import axios from 'axios';
+import {Spinner} from 'reactstrap';
 
 
 class MainContent extends Component {
@@ -10,13 +11,18 @@ class MainContent extends Component {
         open: false,
         products: [
         ],
-        isEditting: undefined //index of product
+        isEditting: undefined, //index of product
+        loading: false
       };
       componentDidMount(){
+          this.setState({
+              loading: true
+          })
           axios.get("http://localhost:3001/products")
             .then(res=>{
                 this.setState({
-                    products: res.data
+                    products: res.data,
+                    loading: false
                 })
             })
       }
@@ -82,6 +88,7 @@ class MainContent extends Component {
             <>
             <main>
                 <ContentHeader toggleModal={this.toggleModal} addProduct={this.addProduct} />
+                {this.state.loading? <Spinner className="d-flex m-auto" color="dark" /> :
                 <div className="content-table">
                         <div className="table-headers">
                             <div className="table-header">
@@ -100,6 +107,7 @@ class MainContent extends Component {
                                 Action
                             </div>
                         </div>
+                        
                         {
                             this.state.products.length>0?
                             this.state.products.map((product) => {
@@ -112,7 +120,8 @@ class MainContent extends Component {
                             })
                             :<h3 className="text-center mt-3">empty product</h3>
                         }
-                </div>  
+                </div>
+                }
             </main>
             {
                 this.state.open?<Modal clearIsEditting={this.clearIsEditting} 
