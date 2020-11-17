@@ -17,10 +17,6 @@ export default function AllProducts(){
     
     return (
         <>
-            <header>
-                <div className="anouncement" >Free shipping on orders over 1.000.000đ</div>
-                <NavbarClient/>   
-            </header>    
             <Container className="mt-5">
                 <Row>
                     <Col md={3}>

@@ -40,12 +40,21 @@ header {
     &:hover:after {
       width: 100%;
     }
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    .nav-link {
+      padding: 0px;
+    }
   }
   .icons {
     width: 100%;
     svg {
       width: 20px;
       margin: 0 15px;
+      cursor: pointer;
     }
   }
 }

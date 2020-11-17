@@ -20,7 +20,7 @@ export default function ProductRow(props) {
                 {price}€
             </div>
             <div className="table-cell">
-                <img src={image}  alt=""/>
+                <img src={image[0]}  alt=""/>
             </div>
             <div className="table-cell">
                 <button className="btn" onClick={handleUpdate}>Edit</button>

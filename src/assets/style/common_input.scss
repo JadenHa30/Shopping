@@ -23,4 +23,16 @@
       background-color: #d2d2d2;
     }
   }
+  .quantity {
+    padding: 0;
+    input {
+      width: 100%;
+      text-align: center;
+      display: block;
+      &:focus {
+        outline: none;
+        border: none;
+      }
+    }
+  }
 }

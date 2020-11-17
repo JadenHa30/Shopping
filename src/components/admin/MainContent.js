@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import ContentHeader from './ContentHeader';
 import ProductRow from './ProductRow';
 import Modal from './Modal';
-import axios from 'axios';
+import axios from 'axios'; 
 import {Spinner} from 'reactstrap';
+import API_CONSTANT from './../../assets/constant/api.js'
 
 
 class MainContent extends Component {
@@ -18,7 +19,7 @@ class MainContent extends Component {
           this.setState({
               loading: true
           })
-          axios.get("http://localhost:3001/products")
+          axios.get(`${API_CONSTANT.domain}/products`)
             .then(res=>{
                 this.setState({
                     products: res.data,
@@ -112,7 +113,7 @@ class MainContent extends Component {
                             this.state.products.length>0?
                             this.state.products.map((product) => {
                                 return <ProductRow 
-                                            key={product.id} 
+                                            key= {product.id} 
                                             product={product}
                                             deleteProduct={this.deleteProduct}
                                             updateIsEditting={this.updateIsEditting}

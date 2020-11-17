@@ -42,10 +42,6 @@ class ProductDetail extends React.Component{
         const {name, price, image} = this.state.product_detail;
         return(
             <>
-                <header>
-                    <div className="anouncement" >Free shipping on orders over 1.000.000đ</div>
-                    <NavbarClient/>   
-                </header>  
                 {this.state.loading === false ? 
                 <Container className="my-5">
                     <Row>
@@ -64,7 +60,6 @@ class ProductDetail extends React.Component{
                 </Container>
                 :<Spinner className="d-flex my-5 mx-auto" color="dark" />
                 }
-                <Footer/>
             </>
         )
     }
