@@ -3,9 +3,28 @@ import { Button, Card, Col, Row, Container } from 'reactstrap'
 import CommonQuantityInput from './CommonQuantityInput';
 import NavbarClient from './NavbarClient'
 import Footer from './Footer.js';
+import {connect} from 'react-redux'
 
+const CartProduct = props =>{
+    const {name,price,quantity, image ,handleChangeQuantity} = props.product;
+    return <div className="cart-table-rows">
+                <div className="cart-table-cell">
+                    <img src={image}  alt=""/>
+                    {name}
+                </div>
+                <div className="cart-table-cell">
+                    {price}€
+                </div>
+                <div className="cart-table-cell">
+                    <CommonQuantityInput value={quantity} onChange={handleChangeQuantity}/>
+                </div>
+                <div className="cart-table-cell">
+                    {price*quantity}€
+                </div>
+            </div>
+}
 
-export default class Cart extends Component {
+class Cart extends Component {
     state={
         name: 'product1',
         price: 50,
@@ -43,21 +62,10 @@ export default class Cart extends Component {
                                     Total
                                 </div>
                             </div>
-                            <div className="cart-table-rows">
-                                <div className="cart-table-cell">
-                                    <img src="https://product.hstatic.net/1000351433/product/2ffc588a-0098-4722-bb74-bd3e0e64667b_3ea118c3d49a40e3ad6ff95006cb7ca9_grande.jpg"  alt=""/>
-                                    {name}
-                                </div>
-                                <div className="cart-table-cell">
-                                    {price}€
-                                </div>
-                                <div className="cart-table-cell">
-                                    <CommonQuantityInput value={quantity} onChange={this.handleChangeQuantity}/>
-                                </div>
-                                <div className="cart-table-cell">
-                                    {price*quantity}€
-                                </div>
-                            </div>
+                            {this.props.cart.length>0 ?
+                            this.props.cart.map(product=>{
+                                return <CartProduct key={product.id} product={product} handleChangeQuantity={this.handleChangeQuantity}/>
+                            }): <h3>EMPTY</h3>} 
                         </div>
                         <div className="cart-total mt-3">
                             <h4>SUBTOTAL 50€</h4>
@@ -72,4 +80,10 @@ export default class Cart extends Component {
     }
 }
 // value={this.state.quantity} onChange={this.handleChangeQuantity}
+const mapStateToProps = state =>{
+    return {
+        cart: state.cart
+    }
+}
+export default connect(mapStateToProps)(Cart)
 

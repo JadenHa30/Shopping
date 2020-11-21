@@ -7,6 +7,7 @@ import ImageContainer from './ImageContainer';
 import Footer from './Footer'
 import CommonQuantityInput from './CommonQuantityInput';
 import API_CONSTANT from './../../assets/constant/api';
+import { connect } from 'react-redux';
 
 
 class ProductDetail extends React.Component{
@@ -38,6 +39,12 @@ class ProductDetail extends React.Component{
             })
             .catch(err => console.log(err))
     }
+    handleAddToCart=()=>{
+        this.props.addToCart({
+            ...this.state.product_detail,
+            image: this.state.product_detail.image[0]
+        }, this.state.quantity)
+    }
     render(){
         const {name, price, image} = this.state.product_detail;
         return(
@@ -53,7 +60,7 @@ class ProductDetail extends React.Component{
                                 <h3>{name}</h3>
                                 <h5>Price: {price}€</h5>
                                 <CommonQuantityInput value={this.state.quantity} onChange={this.handleChangeQuantity}/>
-                                <Button color="dark" outline>Submit</Button>
+                                <Button onClick={this.handleAddToCart} color="dark" outline>Add to cart</Button>
                             </Card>
                         </Col>
                     </Row>
@@ -65,4 +72,18 @@ class ProductDetail extends React.Component{
     }
 }
 
-export default withRouter(ProductDetail);
+const mapDispatchToProps = dispatch =>{
+    return {
+        addToCart: (product, quantity)=>{
+            dispatch({
+                type: "ADD_TO_CART",
+                payload: {
+                    ...product,
+                    quantity
+                }
+            })
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(ProductDetail));

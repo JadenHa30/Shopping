@@ -3,8 +3,10 @@ import React from 'react';
 import {Row, Spinner} from 'reactstrap';
 import Product from './Product';
 import axios from 'axios';
+import {connect} from 'react-redux'
 
-export default class ProductList extends React.Component{
+
+class ProductList extends React.Component{
     state={
         products:[],
         loading: false
@@ -27,10 +29,25 @@ export default class ProductList extends React.Component{
                 {this.state.loading && <Spinner className="m-auto" color="dark" />} {/* if true return spiner, else donot return*/}
                 {
                     this.state.products.map((product, index)=>{
-                        return <Product key={`$product_${index}`} id={product.id} name={product.name} price={product.price} image={product.image[0]}/>
+                        return <Product addToCart={this.props.addToCart} key={`$product_${index}`} id={product.id} name={product.name} price={product.price} image={product.image[0]}/>
                     })
                 }
             </Row>
         );
     }
+
+    
 }
+
+const mapDispatchToProps = (dispatch)=>{
+    return {
+        addToCart: (product, quantity)=>{
+            dispatch({type: "ADD_TO_CART", payload: {
+                ...product,
+                quantity
+            }})
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ProductList)

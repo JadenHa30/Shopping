@@ -13,8 +13,9 @@ import Login from "./../../assets/icons/login.js";
 import Search from "./../../assets/icons/search.js";
 import Cart from "./../../assets/icons/cart.js";
 import {Link, NavLink} from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default function NavbarClient(){
+function NavbarClient(props){
     const toggle = false;
     const isOpen = false;
     return (
@@ -84,9 +85,12 @@ export default function NavbarClient(){
                         </Nav>
                         <NavbarText className="icons">
                             <Login/>
-                            <NavLink exact to="/cart">
-                                <Cart/>
-                            </NavLink>
+                            <div id="navCart">
+                                <NavLink exact to="/cart">
+                                    <Cart/>
+                                    <div className="qty">{props.cart_total}</div>
+                                </NavLink>
+                            </div>
                             <Search/>
                         </NavbarText>
                     </Collapse>
@@ -95,3 +99,14 @@ export default function NavbarClient(){
         </header> 
     );
 }
+
+const mapStateToProps = (state) =>{
+    const total = state.cart.reduce((sum,product)=>{
+        return sum = product.quantity + sum;
+    },0)
+    return {
+        cart_total: total
+    }
+}
+
+export default connect(mapStateToProps)(NavbarClient)

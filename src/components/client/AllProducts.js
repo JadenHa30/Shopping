@@ -66,7 +66,6 @@ export default function AllProducts(){
                     </Col>
                 </Row>
             </Container>
-            <Footer/>
         </>
     );
 }
