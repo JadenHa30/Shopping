@@ -1,0 +1,15 @@
+.checkout {
+  height: 100vh;
+  margin: auto;
+  .productCheckout {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #d2d2d2;
+    div {
+      display: flex;
+      img {
+        width: 50px;
+      }
+    }
+  }
+}

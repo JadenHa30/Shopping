@@ -11,6 +11,7 @@ import NavbarClient from './components/client/NavbarClient';
 import Footer from './components/client/Footer';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
+import Checkout from './components/client/Checkout';
 
 function App() {
   const initialState = {
@@ -24,13 +25,32 @@ function App() {
       if(exist < 0){
         new_cart = [
           ...state.cart,
-          action.payload
+          {
+            ...action.payload,
+            id_cart: Date.now()
+          }
         ]
       }else{
         new_cart = [...state.cart];
         new_cart[exist].quantity = new_cart[exist].quantity + action.payload.quantity;
       }
       return {
+        ...state,
+        cart: new_cart
+      }
+    }else if(action.type==="UPDATE_CART"){
+      const exist = state.cart.findIndex(product=> product.id_cart === action.payload.id_cart)
+      const new_cart = [...state.cart];
+      new_cart[exist].quantity=action.payload.quantity;
+      return{
+        ...state,
+        cart: new_cart
+      }
+    }else if(action.type === "DELETE_CART"){
+      const new_cart = state.cart.filter(product=>{
+        return product.id_cart !== action.payload;
+      })
+      return{
         ...state,
         cart: new_cart
       }
@@ -48,7 +68,6 @@ function App() {
     <Provider store={store}>
       <Router>
         <div>
-          <NavbarClient/>
           <Switch>
             <Route path="/admin/login">
               <Login/>
@@ -57,13 +76,19 @@ function App() {
               <ShoppingAdmin />
             </Route>
             <Route path="/products/:id">
+              <NavbarClient/>
               <ProductDetail/>
             </Route>
             <Route path="/products">
+              <NavbarClient/>
               <AllProducts />
             </Route>
             <Route path="/cart">
+              <NavbarClient/>
               <Cart/>
+            </Route>
+            <Route path="/checkout">
+              <Checkout/>
             </Route>
             <Route path="/">
               <Home/>

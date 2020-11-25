@@ -101,7 +101,13 @@
   min-height: 100vh;
   background-color: wheat;
   .login-modal {
-    width: 40%;
+    width: 30%;
     padding: 20px;
+  }
+  .row {
+    margin: 10px 0;
+    label {
+      padding: 5px 0;
+    }
   }
 }

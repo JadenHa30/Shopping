@@ -6,11 +6,11 @@ function CommonQuantityInput(props) {
     return (
         <>
             <Row className="quantity-input">
-                <Col md={2} className="minus" onClick={()=>props.onChange&&props.onChange(+1,true)}>+</Col>
+                <Col md={2} className="minus" onClick={()=>props.onChange(+1,true)}>+</Col>
                 <Col md={3} className="quantity">
-                    <input value={props.value || 0} onChange={event=>{props.onChange&&props.onChange(Number(event.target.value), false)}}/>
+                    <input value={props.value} onChange={event=>{props.onChange(Number(event.target.value), false)}}/>
                 </Col>
-                <Col md={2} className="plus" onClick={()=>props.value>=1 ? (props.onChange&&props.onChange(-1,true)) : props.value}>-</Col>
+                <Col md={2} className="plus" onClick={()=> props.value>1 && (props.onChange(-1,true))}>-</Col>
             </Row>
         </>
     )
