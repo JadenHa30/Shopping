@@ -4,7 +4,9 @@ export default class  Modal extends Component{
     state={
         name: "",
         price: 0,
-        image: ""
+        image_one:"",
+        image_two:"",
+        image_three:""
     }
     handleClose = ()=>{
         this.props.toggleModal();
@@ -16,7 +18,8 @@ export default class  Modal extends Component{
     }
     handleSubmit=(event)=>{
         event.preventDefault();
-        const {name, price, image} = this.state;
+        const {name, price, image_one, image_two, image_three} = this.state;
+        const image = [image_one, image_two, image_three]
         if(this.props.editingProduct){
             this.props.updateProduct(name, price, image);
         }else{
@@ -41,7 +44,7 @@ export default class  Modal extends Component{
         this.props.clearIsEditting();
     }
     render(){
-        const {name, price, image} = this.state;
+        const {name, price, image_one, image_two, image_three} = this.state;
         return(
             <div className="modal">
                 <div className="content">
@@ -60,7 +63,9 @@ export default class  Modal extends Component{
                         </div>
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">Image</label>
-                            <input type="text" name="image" className="form-control" placeholder="Image" value={image} onChange={this.handleChange} />
+                            <input type="text" name="image" className="form-control" placeholder="Image" value={image_one} onChange={this.handleChange} />
+                            <input type="text" name="image" className="form-control" placeholder="Image" value={image_two} onChange={this.handleChange} />
+                            <input type="text" name="image" className="form-control" placeholder="Image" value={image_three} onChange={this.handleChange} />
                         </div>
                         <button type="submit" className="btn btn-primary">{this.props.editingProduct?'Update':'Add'}</button>
                     </form>

@@ -12,6 +12,7 @@ import Footer from './components/client/Footer';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Checkout from './components/client/Checkout';
+import Shopping from './components/admin/ShoppingAdmin';
 
 function App() {
   const initialState = {
@@ -69,11 +70,9 @@ function App() {
       <Router>
         <div>
           <Switch>
-            <Route path="/admin/login">
-              <Login/>
+            <Route path="/admin/login" component={Login}>
             </Route>
-            <Route path="/admin">
-              <ShoppingAdmin />
+            <Route path="/admin" component={ShoppingAdmin}>
             </Route>
             <Route path="/products/:id">
               <NavbarClient/>

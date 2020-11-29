@@ -11,6 +11,13 @@ class Shopping extends Component {
             sidebar_open: true
          }
     }
+    componentDidMount(){
+        //when user has not login
+        const token = window.localStorage.getItem('admin_token');
+        if(!token){
+            this.props.history.push('/admin/login')
+        }
+    }
     toggleSidebar = () => {
         this.setState({
             sidebar_open:!this.state.sidebar_open
