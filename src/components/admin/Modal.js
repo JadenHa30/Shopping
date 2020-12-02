@@ -65,9 +65,9 @@ export default class  Modal extends Component{
                         </div>
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">Image</label>
-                            <input type="text" name="image" className="form-control" placeholder="Image" value={image_one} onChange={this.handleChange} />
-                            <input type="text" name="image" className="form-control" placeholder="Image" value={image_two} onChange={this.handleChange} />
-                            <input type="text" name="image" className="form-control" placeholder="Image" value={image_three} onChange={this.handleChange} />
+                            <input type="text" name="image_one" className="form-control" placeholder="Image" value={image_one} onChange={this.handleChange} />
+                            <input type="text" name="image_two" className="form-control" placeholder="Image" value={image_two} onChange={this.handleChange} />
+                            <input type="text" name="image_three" className="form-control" placeholder="Image" value={image_three} onChange={this.handleChange} />
                         </div>
                         <button type="submit" className="btn btn-primary">{this.props.editingProduct?'Update':'Add'}</button>
                     </form>

@@ -17,59 +17,86 @@ class MainContent extends Component {
         loading: false,
         product_id: undefined
       };
-      componentDidMount(){
-          this.setState({
-              loading: true
-          })
-          axios.get(`${API_CONSTANT.domain}/products`)
-            .then(res=>{
-                this.setState({
-                    products: res.data,
-                    loading: false
-                })
+    componentDidMount(){
+        this.setState({
+            loading: true
+        })
+        axios.get(`${API_CONSTANT.domain}/products`)
+        .then(res=>{
+            this.setState({
+                products: res.data,
+                loading: false
             })
-      }
+        })
+    }
 
     addProduct = (name, price, image) =>{
-        const product={
-                id: this.state.products.length, //set increasing id
-                name,
-                price,
-                image
-              }
-        this.setState({
-            products:[...this.state.products,product]
-        })
+        // const product={
+        //         id: this.state.products.length, //set increasing id
+        //         name,
+        //         price,
+        //         image
+        //       }
+        // this.setState({
+        //     products:[...this.state.products,product]
+        // })
+        axios.post(`${API_CONSTANT.domain}/products`, {
+            name,
+            image,
+            price
+        },{
+            headers:{
+                token: window.localStorage.getItem('admin_token')
+            }
+        }).then(res=>{
+            console.log(res);
+            this.componentDidMount();
+        }).catch(err=>console.log(err))
     }
 
     updateProduct = (name, price, image) =>{
         const new_products = [...this.state.products];
-        new_products[this.state.isEditting]={
-            ...new_products[this.state.isEditting], //we will keep info that cannot edit
+        // new_products[this.state.isEditting]={
+        //     ...new_products[this.state.isEditting], //we will keep info that cannot edit
+        //     name,
+        //     image,
+        //     price
+        // }
+        // this.setState({
+        //     products: new_products
+        // })
+        axios.put(`${API_CONSTANT.domain}/products/${this.state.product_id}`, {
+            ...new_products[this.state.isEditting],
             name,
             image,
             price
-        }
-        this.setState({
-            products: new_products
-        })
-        axios.post(`${API_CONSTANT.domain}/products/${this.state.product_id}`, {
-            ...new_products[this.state.isEditting], //we will keep info that cannot edit
-            name,
-            image,
-            price
+        },{
+            headers:{
+                token: window.localStorage.getItem('admin_token')
+            }
         }).then(res=>{
             console.log(res);
+            this.componentDidMount();
         }).catch(err=>console.log(err))
     }
 
     deleteProduct = (id)=>{
-        const update_product = [...this.state.products].filter(product => {
-            return product.id !== id;
-        });
-        this.setState({
-            products: update_product
-        })
+        console.log(id);
+        // const update_product = [...this.state.products].filter(product => {
+        //     return product.id !== id;
+        // });
+        // this.setState({
+        //     products: update_product
+        // })
+
+        axios.delete(`${API_CONSTANT.domain}/products/${id}`,{
+            headers: {
+                token: window.localStorage.getItem('admin_token')
+            }
+        }).then(res =>{
+            console.log(res);
+            this.componentDidMount();
+        }).catch(err=>console.log(err))
     }
 
     toggleModal = ()=>{

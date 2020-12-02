@@ -1,0 +1,14 @@
+.user-login-page {
+  min-height: 100vh;
+  background-color: #000;
+  .user-login-modal {
+    width: 30%;
+    padding: 20px;
+  }
+  .row {
+    margin: 10px 0;
+    label {
+      padding: 5px 0;
+    }
+  }
+}

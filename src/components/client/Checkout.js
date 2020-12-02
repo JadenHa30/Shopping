@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Col, Container, Row } from 'reactstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import API_CONSTANT from './../../assets/constant/api.js'
+
 
 class ProductCheckout extends Component{
     render(){
@@ -32,37 +34,45 @@ class Checkout extends Component {
             [event.target.name]: event.target.value
         })
     }
+    
     handleSubmit = (event)=>{
         event.preventDefault();
-        axios.post('http://localhost:3001/carts',{
-            ...this.state,
-            cart:[
-                ...this.props.cart
-            ],
-            total_items: this.props.total_items,
-            total_price: this.props.total_price
-        }).then(res=>{
-            Swal.fire({
-                title:"Checkout successfully",
-                timer:2000,
-                showConfirmButton:false,
-                icon:'success',
-                timerProgressBar:true
-            }).then(()=>{
-                this.props.clearCart()
-                this.handleClose();
+        const token = window.localStorage.getItem('user_token');
+        if(token){
+            axios.post(`${API_CONSTANT.domain}/carts`,{
+                ...this.state,
+                cart:[
+                    ...this.props.cart
+                ],
+                total_items: this.props.total_items,
+                total_price: this.props.total_price
+            },{
+                headers:{
+                    token: window.localStorage.getItem('user_token')
+                }
+            }).then(res=>{
+                Swal.fire({
+                    title:"Checkout successfully",
+                    timer:2000,
+                    showConfirmButton:false,
+                    icon:'success',
+                    timerProgressBar:true
+                }).then(()=>{
+                    this.props.clearCart()
+                })
+            }).catch(err=>{
+                Swal.fire({
+                    title:"Checkout unsuccessfully",
+                    text:"Something went wrong",
+                    timer:2000,
+                    showConfirmButton:false,
+                    icon:'error',
+                    timerProgressBar:true
+                })
             })
-        }).catch(err=>{
-            Swal.fire({
-                title:"Checkout unsuccessfully",
-                text:"Something went wrong",
-                timer:2000,
-                showConfirmButton:false,
-                icon:'error',
-                timerProgressBar:true
-            })
-        })
-        
+        }else{
+            this.props.history.push('/user_login');
+        }
     }
     render() {
         const {full_name,address,phone} = this.state;
@@ -124,4 +134,14 @@ const mapStateToProps=(state)=>{
         total_items : totalItems
     }
 }
-export default connect(mapStateToProps)(Checkout);
+
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        clearCart: ()=>{
+            dispatch({
+                type: "CLEAR_CART"
+            })
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

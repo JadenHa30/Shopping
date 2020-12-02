@@ -12,6 +12,7 @@ import Footer from './components/client/Footer';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Checkout from './components/client/Checkout';
+import UserLogin from './components/client/UserLogin';
 import Shopping from './components/admin/ShoppingAdmin';
 
 function App() {
@@ -55,6 +56,11 @@ function App() {
         ...state,
         cart: new_cart
       }
+    }else if(action.type == "CLEAR_CART"){
+      return {
+        ...state,
+        cart: []
+      }
     }
     return state;
   }
@@ -86,8 +92,9 @@ function App() {
               <NavbarClient/>
               <Cart/>
             </Route>
-            <Route path="/checkout">
-              <Checkout/>
+            <Route path="/user_login" component={UserLogin}>
+            </Route>
+            <Route path="/checkout" component={Checkout}>
             </Route>
             <Route path="/">
               <Home/>
