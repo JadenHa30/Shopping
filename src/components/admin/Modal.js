@@ -34,7 +34,9 @@ export default class  Modal extends Component{
             this.setState({
                 name,
                 price,
-                image
+                image_one: image[0],
+                image_two: image[1],
+                image_three: image[2]
             })
         }else{
             console.log("create")

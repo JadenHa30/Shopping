@@ -4,7 +4,8 @@ import ProductRow from './ProductRow';
 import Modal from './Modal';
 import axios from 'axios'; 
 import {Spinner} from 'reactstrap';
-import API_CONSTANT from './../../assets/constant/api.js'
+import API_CONSTANT from './../../assets/constant/api.js';
+import {connect} from 'react-redux';
 
 
 class MainContent extends Component {
@@ -13,7 +14,8 @@ class MainContent extends Component {
         products: [
         ],
         isEditting: undefined, //index of product
-        loading: false
+        loading: false,
+        product_id: undefined
       };
       componentDidMount(){
           this.setState({
@@ -51,6 +53,14 @@ class MainContent extends Component {
         this.setState({
             products: new_products
         })
+        axios.post(`${API_CONSTANT.domain}/products/${this.state.product_id}`, {
+            ...new_products[this.state.isEditting], //we will keep info that cannot edit
+            name,
+            image,
+            price
+        }).then(res=>{
+            console.log(res);
+        }).catch(err=>console.log(err))
     }
 
     deleteProduct = (id)=>{
@@ -73,8 +83,9 @@ class MainContent extends Component {
             return product.id === id;
         })
         this.setState({
-            isEditting: product_index
-        },()=>console.log(this.state.isEditting))
+            isEditting: product_index,
+            product_id: id
+        },()=>console.log(this.state.product_id))
         this.toggleModal();
     }
 
