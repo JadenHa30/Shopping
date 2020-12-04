@@ -1,0 +1,41 @@
+.pagination {
+  margin: 15px auto;
+  display: flex;
+  list-style: none;
+  outline: none;
+
+  li {
+    margin: 0 5px;
+    a {
+      border: 1px solid #000;
+      padding: 5px 10px;
+      border-radius: 50%;
+      outline: none;
+      cursor: pointer;
+    }
+  }
+  .active {
+    a {
+      border-color: #000;
+      border-radius: 50%;
+      color: #000;
+      font-weight: bold;
+    }
+  }
+  .previous {
+    a {
+      border: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .next {
+    a {
+      border: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

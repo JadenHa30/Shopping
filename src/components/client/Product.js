@@ -24,10 +24,10 @@ export default function Product(props){
             <CardImg top width="100%" src={image} alt="Card image cap" />
             <CardBody>
                 <CardTitle tag="h5">
-                    <Link to={`/products/${id}`}>{name}</Link>
+                    <Link className="product-name" to={`/products/${id}`}>{name}</Link>
                 </CardTitle>
                 <CardSubtitle tag="h6" className="mb-2 text-muted">{price}$</CardSubtitle>
-                <Button onClick={handleAddToCart} color="primary" outline>Add to cart</Button>
+                <Button onClick={handleAddToCart} className="btn-custom" outline>Add to cart</Button>
             </CardBody>
         </Col>
     );
