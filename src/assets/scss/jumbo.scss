@@ -1,0 +1,30 @@
+@import "./variables";
+
+.jumbo {
+  position: relative;
+  height: 80vh;
+  z-index: -100;
+  .bg {
+    font-size: 120px;
+    text-align: center;
+    text-shadow: 0px 4px 36px #eaeaea;
+    font-weight: bold;
+    color: #fff;
+  }
+  .sum {
+    width: 50%;
+    p {
+      color: $text-color;
+    }
+  }
+  .deco {
+    position: absolute;
+    top: 200px;
+    right: 10px;
+    width: 280px;
+    height: 100%;
+    background: url("../pics/cv-custom.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}

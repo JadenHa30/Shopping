@@ -1,0 +1,15 @@
+#contact {
+  p {
+    text-align: center;
+  }
+  .contact {
+    display: flex;
+    margin-bottom: 20px;
+    div {
+      width: 10%;
+    }
+    p {
+      margin-left: 20px;
+    }
+  }
+}

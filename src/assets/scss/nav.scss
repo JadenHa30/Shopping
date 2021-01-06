@@ -1,0 +1,63 @@
+@import "./variables";
+.nav-custom {
+  position: relative;
+  .nav-left {
+    display: flex;
+    .logo {
+      border: 3px solid #000;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      span {
+        font-size: 23px;
+        vertical-align: middle;
+      }
+    }
+    h3 {
+      margin: 0px;
+    }
+    p {
+      letter-spacing: 5px;
+      font-size: 12px;
+    }
+  }
+  .menu {
+    width: 30px;
+    margin-left: auto;
+    cursor: pointer;
+    div {
+      cursor: pointer;
+    }
+  }
+  ul {
+    position: absolute;
+    top: 0;
+    right: 0;
+    animation: $showup 15s none;
+    display: block;
+    list-style-type: none;
+    li {
+      cursor: pointer;
+      margin-bottom: 5px;
+      a {
+        position: relative;
+        &:hover::before {
+          transform: scaleX(1);
+        }
+      }
+      a::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        bottom: 0;
+        left: 0;
+        background-color: #000;
+        visibility: visible;
+        transform: scaleX(0);
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
+}
